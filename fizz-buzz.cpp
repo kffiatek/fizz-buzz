@@ -3,38 +3,26 @@
 
 int game_size = 100;
 
-typedef struct{
-  int n;
-  char* spell;
-} factor_of_interest;
-
-int no_of_factors = 2;
-factor_of_interest* alloc_factors(){
-  factor_of_interest* factors_of_interest = (factor_of_interest*)malloc(no_of_factors * sizeof(*factors_of_interest));
-  factors_of_interest[0].spell=(char*)malloc(sizeof(char*));
-  factors_of_interest[0].spell="Fizz";
-  factors_of_interest[0].n=3;
-  factors_of_interest[1].spell=(char*)malloc(sizeof(char*));
-  factors_of_interest[1].spell="Buzz";
-  factors_of_interest[1].n=5;
-  for (int i=0; i<no_of_factors; i++){
-    std::cout << factors_of_interest[i].n << " : " << factors_of_interest[i].spell <<std::endl;
-  }
-  return factors_of_interest;
-}
+const char* words_t[]= {"Fizz", "Buzz", "szakalaka"};
+const int values_t[] = {3, 5, 6};
 
 int main(){
-
-  std::cout << "Fizz-Buzz by Kffiatek" << std::endl;
-    int no_of_factors = 2;
-    factor_of_interest* factors_of_interest = alloc_factors();
-  for (int i=1; i <= game_size; i++){
-    char* result ="";
-    for (int n = 0; n<no_of_factors; n++){
-      if (i % factors_of_interest[n].n == 0) { result = strcat(result, factors_of_interest[n].spell);}
+  for (int i = 1; i <= game_size; i++){
+    int player = i % 2;
+    int values_count =sizeof(values_t)/sizeof(values_t[0]);
+    bool is_divisible = false;
+    for (int j = 0; j<values_count; j++){
+      if (i % values_t[j] == 0) {
+        if (is_divisible){
+          std::cout << "-"; 
+        }
+        is_divisible = true;
+        std::cout << words_t[j];
+      }
     }
-    if (result =="") std::cout << i << std::endl;
+    if (!is_divisible){
+      std::cout << i;
+    }
+    std::cout << "\n";
   }
-
-  return 0;
 }
